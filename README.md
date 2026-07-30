@@ -197,5 +197,5 @@ suspend fun getCart(
 
 ---
 
-## 👤 Author
-Developed by **Rishu** — Spring Boot Backend Developer.
+🎉 Happy coding, Rishabh! 🎉
+
