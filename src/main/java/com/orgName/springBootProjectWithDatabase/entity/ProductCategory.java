@@ -6,5 +6,14 @@ public enum ProductCategory {
     FOOD,
     BOOKS,
     HOME,
-    SPORTS
+    SPORTS,
+    BEAUTY,
+    GARDEN,
+    AUTOMOTIVE,
+    TOYS,
+    PET_SUPPLIES,
+    OFFICE_SUPPLIES,
+    GADGETS,
+    MUSIC,
+    HEALTH
 }

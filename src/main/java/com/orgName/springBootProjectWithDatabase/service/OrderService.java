@@ -15,6 +15,7 @@ import com.orgName.springBootProjectWithDatabase.repository.OrderRepository;
 import com.orgName.springBootProjectWithDatabase.repository.ProductRepository;
 import com.orgName.springBootProjectWithDatabase.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -80,6 +81,40 @@ public class OrderService {
             throw new OrderNotFoundException("Order not found with id: " + id);
         }
         orderrepository.deleteById(id);
+    }
+
+    // ---------- AUTOMATED ORDER STATUS SCHEDULER ----------
+
+    @Scheduled(fixedRate = 60000) // Checks every 60 seconds
+    public void processOrderStatusTransitions() {
+        LocalDateTime now = LocalDateTime.now();
+
+        // 1. Move PENDING -> PROCESSING if 1 hour has elapsed since order creation
+        List<Order> pendingOrders = orderrepository.findByStatus(OrderStatus.PENDING);
+        for (Order order : pendingOrders) {
+            if (order.getOrderDate().plusHours(1).isBefore(now)) {
+                order.setStatus(OrderStatus.PROCESSING);
+                orderrepository.save(order);
+            }
+        }
+
+        // 2. Move PROCESSING -> SHIPPED if 2 hours have elapsed since order creation (1 hour after PROCESSING)
+        List<Order> processingOrders = orderrepository.findByStatus(OrderStatus.PROCESSING);
+        for (Order order : processingOrders) {
+            if (order.getOrderDate().plusHours(2).isBefore(now)) {
+                order.setStatus(OrderStatus.SHIPPED);
+                orderrepository.save(order);
+            }
+        }
+
+        // 3. Move SHIPPED -> DELIVERED if 3 hours have elapsed since order creation (1 hour after SHIPPED)
+        List<Order> shippedOrders = orderrepository.findByStatus(OrderStatus.SHIPPED);
+        for (Order order : shippedOrders) {
+            if (order.getOrderDate().plusHours(3).isBefore(now)) {
+                order.setStatus(OrderStatus.DELIVERED);
+                orderrepository.save(order);
+            }
+        }
     }
 
     // ---------- helpers ----------
