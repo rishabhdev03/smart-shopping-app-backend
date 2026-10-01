@@ -194,6 +194,21 @@ suspend fun getCart(
 ): Response<List<CartItemDto>>
 ```
 
+Deployment
+
+This Spring Boot backend is deployed on AWS EC2 and is publicly accessible.
+
+Base URL
+
+http://13.60.62.229:8080/api/v1/
+
+All API endpoints should be called using the above base URL.
+
+Example
+
+GET http://13.60.62.229:8080/api/v1/products
+POST http://13.60.62.229:8080/api/v1/auth/login
+
 ---
 
 🎉 Happy coding, Rishabh! 🎉
