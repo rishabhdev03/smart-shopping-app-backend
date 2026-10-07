@@ -20,7 +20,7 @@ Built with **Spring Boot**, **Spring Security (JWT)**, **Spring Data JPA**, and 
 * **CORS Support**: Configured cross-origin support for Android emulators and mobile devices.
 
 ### 🛍️ 2. Product Catalog & Search
-* **Category Filtering**: Filter products by categories (`ELECTRONICS`, `CLOTHING`, `FOOD`, `BOOKS`, `HOME`, `SPORTS`,etc).
+* **Category Filtering**: Filter products by categories (`ELECTRONICS`, `CLOTHING`, `FOOD`, `BOOKS`, `HOME`, `SPORTS`, etc).
 * **Search Engine**: Case-insensitive search by product name with combined category filtering.
 * **Admin Catalog Management**: Admin endpoints for creating, updating, and deleting product inventory.
 
